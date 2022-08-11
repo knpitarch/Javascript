@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESAFIO CLASE 6 - Incorporar Arrays</title>
+    <title>PROYECTO FINAL: Primera Entrega</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -19,7 +19,7 @@
             </figure>    
             </div>
             <div class="text-light" id="titulo">
-                DESAFIO CLASE 6 - Incorporar Arrays
+                PROYECTO FINAL: Primera Entrega
             </div> 
             <div>
                 <img class="" id="img2" src="assets/img/logo-coder.png" alt="logo coderhouse">
@@ -27,16 +27,64 @@
     </header>
     
     <div class="container" id="container">
+        <table class="table table-borderless table-hover table-dark">
+            <thead>
+                <p class="text-center h3">Carrito de Compras</p>
+                <tr class="text-center h4">
+                    <th scope="col">Producto</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody id="printHtml" class="text-center h5">
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            <p class="h4">TOTAL =<span id="montoTotal"></span></p>
+
+        </div>
         <div class="d-flex row mt-2">
             <div class="col text-center">
     
-                <button type="button" id="btnEjec"class ="btn btn-success btn-lg">Click para Ejecutar Desafio en Consola</button>
-                <button type="button" id="btnDelet"class ="btn btn-danger btn-lg">Click para Quitar Item</button>
-                
+                <button type="button" id="btnDelet"class ="btn btn-danger btn-lg">Quitar Item >></button>
+                <button type="button" id="btnDeletAll"class ="btn btn-danger btn-lg">Vaciar Carrito >></button>
             </div>
         </div>
-    </div>
-
+        <div class="d-flex row">
+        <div class="card mx-auto text-center mt-4 mb-4">
+            <img class="card-img-top p-2" style="width: 15rem;" src="assets/img/mk11.jpg" alt="mk-11">
+            <div class="card-body">
+                <h5 class="card-title h4">Mortal Kombat 11</h5>
+                <p id="precioItem"class="card-text h5">$2800</p>
+                <a id="btnCarro1" href="#" class="btn btn-success mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        <div class="card mx-auto text-center mt-4 mb-4">
+            <img class="card-img-top p-2" style="width: 15rem;" src="assets/img/assasins-creed.jpg" alt="assasins-creed">
+            <div class="card-body">
+                <h5 class="card-title h4">Assasins Creed Revelations</h5>
+                <p id="precioItem"class="card-text h5">$2000</p>
+                <a id="btnCarro2" href="#" class="btn btn-success mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        <div class="card mx-auto text-center mt-4 mb-4">
+            <img class="card-img-top p-2" style="width: 15rem;" src="assets/img/captain-tsubasa.jpg" alt="captain-tsubasa">
+            <div class="card-body">
+                <h5 class="card-title h4">Captain Tsubasa Rise Of New Champions</h5>
+                <p id="precioItem"class="card-text h5">$2500</p>
+                <a id="btnCarro3" href="#" class="btn btn-success mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        <div class="card mx-auto text-center mt-4 mb-4">
+            <img class="card-img-top p-2" style="width: 15rem;" src="assets/img/fifa-23.jpg" alt="fifa-23">
+            <div class="card-body">
+                <h5 class="card-title h4">FIFA 23</h5>
+                <p id="precioItem"class="card-text h5">$3000</p>
+                <a id="btnCarro4" href="#" class="btn btn-success mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        <hr size="2px" color="white" />
     <script src="app.js"></script>
 
 </body>
