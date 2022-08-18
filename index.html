@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESAFIO 8 - Interactuar con HTML</title>
+    <title>Desafio 9 - Obligatorio y Complementario</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -19,7 +20,7 @@
             </figure>    
             </div>
             <div class="text-light" id="titulo">
-                DESAFIO 8 - Interactuar con HTML
+                Desafio 9 - Eventos
             </div> 
             <div>
                 <img class="" id="img2" src="assets/img/logo-coder.png" alt="logo coderhouse">
@@ -27,38 +28,95 @@
     </header>
     
     <div class="container" id="container">
-        <div class="mb-2">
-            <button title="Texto a Minúsculas" type="button" id="btnMins" class ="btn btn-info btn-sm" >L</button>
-            <button title="Texto a Cursiva" type="button" id="btnCursiva" class ="btn btn-info btn-sm "><em>C</em></button>
-            <button title="Subrayar Texto" type="button" id="btnSubrayado" class ="btn btn-info btn-sm"><u>S</u></button>
-        </div>
+        <p class="text-center mb-4 h2">Carrito de Compras</p>
         <table class="table table-borderless table-hover table-dark">
-            <thead>
+            <thead id="encabezado">
                 <tr class="text-center h4">
-                    <th scope="col">Item #</th>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Plataforma</th>
-                    <th scope="col">Genero</th>
-                    <th scope="col">Año</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
+                    <th scope="col">Quitar</th>
                 </tr>
             </thead>
             <tbody id="printHtml" class="text-center h5">
             </tbody>
         </table>
-        <div class="d-flex row mt-2">
-            <div class="col text-center">
-    
-                <button type="button" id="btnEjec"class ="btn btn-success btn-lg">Cargar Item >></button>
-                <button type="button" id="btnModf"class ="btn btn-primary btn-lg">Modificar Item >></button>
-                <button type="button" id="btnDelet"class ="btn btn-danger btn-lg">Quitar Item >></button>
-                <button type="button" id="btnDeletAll"class ="btn btn-danger btn-lg">Quitar Todo >></button>
-                <button type="button" id="btnOrder"class ="btn btn-secondary btn-lg">Ordenar o Filtrar Items >></button>
+        <div id="carrito-vacio" text-center"></div>
+
+        <div class="modal fade" id="ventanaConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Quitar item del carrito</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body h6">
+                        ¿Desea quitar el item del carrito?
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCancelar"type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                        <button id="btnAceptar" type="button" class="btn btn-secondary">Aceptar</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+        <div class="d-flex justify-content-center">
+            <p class="h4">VALOR TOTAL =<span id="montoTotal"></span></p>
+
+        </div>
+        <div class="d-flex row mt-2">
+            <div class="col text-center">
+                <button type="button" id="btnDeletAll"class ="btn btn-danger btn-lg">Vaciar el Carrito >></button>
+            </div>
+        </div>
+        <div class="row mb-4 mt-4">
+        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+            <div class="card">
+            <img class="card-img-top img-fluid p-2" src="assets/img/battlefield-2042.jpg" alt="battlefield-2042">
+            <div class="card-body">
+                <h4 class="card-title">Battlefield 2042</h4>
+                <p id="precioItem"class="card-text h5">$2800</p>
+                <a id="btnCarro1" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+            <div class="card">
+            <img class="card-img-top img-fluid p-2" src="assets/img/blue-protocol.jpg" alt="blue-protocol">
+            <div class="card-body">
+                <h4 class="card-title">Blue Protocol</h4>
+                <p id="precioItem"class="card-text h5">$2000</p>
+                <a id="btnCarro2" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+            <div class="card">
+            <img class="card-img-top img-fluid p-2" src="assets/img/halo-infinite.jpg" alt="halo-infinite">
+            <div class="card-body">
+                <h4 class="card-title">Halo Infinite</h4>
+                <p id="precioItem"class="card-text h5">$2500</p>
+                <a id="btnCarro3" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+            <div class="card">
+            <img class="card-img-top img-fluid p-2" src="assets/img/elden-ring.jpg" alt="elden-ring">
+            <div class="card-body">
+                <h4 class="card-title h4">Elden Ring</h4>
+                <p id="precioItem"class="card-text h5">$3000</p>
+                <a id="btnCarro4" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+            </div>
+            </div>
+        </div>
+        
+        </div>
         <hr size="2px" color="white" />
-    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 
 </body>
