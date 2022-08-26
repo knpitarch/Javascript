@@ -1,123 +1,216 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio 9 - Obligatorio y Complementario</title>
+    <title>PROYECTO FINAL: Segunda Entrega</title>
 
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/wow/animate.css">
 </head>
+
 <body>
 
-    <header class="d-flex justify-content-center text-center p-3" id="contenido-header">
-            <div class="figure">
-            <figure>
-                <img class="figure-img" id="img0" src="assets/img/avatar-perfil.png" alt="imagen perfil">
-                <figcaption class="figure-caption text-light"><h5>Kevin Pitarch</h5></figcaption>
-            </figure>    
-            </div>
-            <div class="text-light" id="titulo">
-                Desafio 9 - Eventos
-            </div> 
-            <div>
-                <img class="" id="img2" src="assets/img/logo-coder.png" alt="logo coderhouse">
-            </div> 
-    </header>
-    
-    <div class="container" id="container">
-        <p class="text-center mb-4 h2">Carrito de Compras</p>
-        <table class="table table-borderless table-hover table-dark">
-            <thead id="encabezado">
-                <tr class="text-center h4">
-                    <th scope="col">Producto</th>
-                    <th scope="col">Código</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Quitar</th>
-                </tr>
-            </thead>
-            <tbody id="printHtml" class="text-center h5">
-            </tbody>
-        </table>
-        <div id="carrito-vacio" text-center"></div>
+    <header class="container text-center p-3" id="contenido-header">
+        <div>
 
-        <div class="modal fade" id="ventanaConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Quitar item del carrito</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <a href="#pills-productos"><img class="img-fluid" id="img0"
+                    src="assets/img/logo-game-store.png" alt="logo-store"></a>
+
+        </div>
+        <div class="container" id="mensajes-alerta"></div>
+
+        <div class="container-fluid  mt-3">
+            <ul class="nav bg-dark nav-pills mb-3 py-3 container-fluid justify-content-center sticky-top" id="pills-tab"
+                role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-productos-tab" data-toggle="pill" href="#pills-productos"
+                        role="tab" aria-controls="pills-productos" aria-selected="true">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-carrito-tab" data-toggle="pill" href="#pills-carrito" role="tab"
+                        aria-controls="pills-carrito" aria-selected="false"><span id="cantidad-total"></span>Carrito</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade" id="pills-objetivos" role="tabpanel" aria-labelledby="pills-objetivos-tab">
+                        <img class="rounded mx-auto d-block" id="img1"
+                            src="assets/img/consigna-segunda-entrega-final.png" alt="imagen-consigna">
+                        <hr size="2px" color="white" />
                     </div>
-                    <div class="modal-body h6">
-                        ¿Desea quitar el item del carrito?
+                </div>
+                <div class="tab-pane fade show active" id="pills-productos" role="tabpanel"
+                    aria-labelledby="pills-productos-tab">
+                    <div class="row" id="contenedor-productos">
+
+                        <div class="row mb-4 mt-4">
+                            <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+                                <div class="card">
+                                    <img class="card-img-top img-fluid p-2" src="assets/img/battlefield-2042.jpg"
+                                        alt="battlefield-2042">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Battlefield 2042</h4>
+                                        <p id="precioItem" class="card-text h5">$2800</p>
+                                        <a id="btnCarro1" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+                                <div class="card">
+                                    <img class="card-img-top img-fluid p-2" src="assets/img/blue-protocol.jpg"
+                                        alt="blue-protocol">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Blue Protocol</h4>
+                                        <p id="precioItem" class="card-text h5">$2000</p>
+                                        <a id="btnCarro2" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+                                <div class="card">
+                                    <img class="card-img-top img-fluid p-2" src="assets/img/halo-infinite.jpg"
+                                        alt="halo-infinite">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Halo Infinite</h4>
+                                        <p id="precioItem" class="card-text h5">$2500</p>
+                                        <a id="btnCarro3" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3 mt-3 text-center">
+                                <div class="card">
+                                    <img class="card-img-top img-fluid p-2" src="assets/img/elden-ring.jpg"
+                                        alt="elden-ring">
+                                    <div class="card-body">
+                                        <h4 class="card-title h4">Elden Ring</h4>
+                                        <p id="precioItem" class="card-text h5">$3000</p>
+                                        <a id="btnCarro4" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="btnCancelar"type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="btnAceptar" type="button" class="btn btn-secondary">Aceptar</button>
+                </div>
+                <div class="tab-pane fade" id="pills-carrito" role="tabpanel" aria-labelledby="pills-carrito-tab">
+                    <table class="table table-borderless table-hover table-dark">
+                        <thead>
+                            <tr class="text-center h5">
+                                <th scope="col">Portada</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Plataforma</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="printHtml" class="text-center h5">
+                        </tbody>
+                    </table>
+                    <div id="carrito-vacio" text-center"></div>
+                    <div class="d-flex justify-content-center">
+                        <p class="h4">TOTAL =<span id="montoTotal"></span></p>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col">
+                            <button type="button" id="btnDeletAll" class="btn btn-danger mt-3 mb-3">Vaciar
+                                Carrito</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" id="btnComprar" class="btn btn-success mt-3 mb-3">Comprar</button>
+                        </div>
+                        <div class="modal fade" id="ventanaConfirmacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Gracias por su Compra.</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body h6">
+                                        El sitio se encuentra en construcción, pronto sumaremos el módulo de transacciones.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnAceptar" type="button" class="btn btn-secondary">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </header>
 
+    <!-- Footer -->
+    <footer class="page-footer font-small cyan darken-3">
 
-        <div class="d-flex justify-content-center">
-            <p class="h4">VALOR TOTAL =<span id="montoTotal"></span></p>
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Grid row-->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-12 py-5">
+                    <div class="mb-5 flex-center">
+
+                        <!-- Facebook -->
+                        <a class="fb-ic">
+                            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!-- Twitter -->
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!-- Google +-->
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Linkedin -->
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Instagram-->
+                        <a class="ins-ic">
+                            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Pinterest-->
+                        <a class="pin-ic">
+                            <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
 
         </div>
-        <div class="d-flex row mt-2">
-            <div class="col text-center">
-                <button type="button" id="btnDeletAll"class ="btn btn-danger btn-lg">Vaciar el Carrito >></button>
-            </div>
-        </div>
-        <div class="row mb-4 mt-4">
-        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
-            <div class="card">
-            <img class="card-img-top img-fluid p-2" src="assets/img/battlefield-2042.jpg" alt="battlefield-2042">
-            <div class="card-body">
-                <h4 class="card-title">Battlefield 2042</h4>
-                <p id="precioItem"class="card-text h5">$2800</p>
-                <a id="btnCarro1" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
-            </div>
-        </div>
-        </div>
-        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
-            <div class="card">
-            <img class="card-img-top img-fluid p-2" src="assets/img/blue-protocol.jpg" alt="blue-protocol">
-            <div class="card-body">
-                <h4 class="card-title">Blue Protocol</h4>
-                <p id="precioItem"class="card-text h5">$2000</p>
-                <a id="btnCarro2" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
-            </div>
-        </div>
-        </div>
-        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
-            <div class="card">
-            <img class="card-img-top img-fluid p-2" src="assets/img/halo-infinite.jpg" alt="halo-infinite">
-            <div class="card-body">
-                <h4 class="card-title">Halo Infinite</h4>
-                <p id="precioItem"class="card-text h5">$2500</p>
-                <a id="btnCarro3" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
-            </div>
-        </div>
-        </div>
-        <div class="col-12 col-md-3 mb-3 mt-3 text-center">
-            <div class="card">
-            <img class="card-img-top img-fluid p-2" src="assets/img/elden-ring.jpg" alt="elden-ring">
-            <div class="card-body">
-                <h4 class="card-title h4">Elden Ring</h4>
-                <p id="precioItem"class="card-text h5">$3000</p>
-                <a id="btnCarro4" href="#" class="btn btn-secondary mt-1">Agregar al Carrito</a>
-            </div>
-            </div>
-        </div>
-        
-        </div>
-        <hr size="2px" color="white" />
+        <!-- Footer Elements -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2022 Copyright:
+            <a href="#"> KevinsGameStore</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 
 </body>
+
 </html>

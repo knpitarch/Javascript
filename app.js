@@ -1,116 +1,185 @@
-let total= 0; 
-let confirmacion = true; 
-let cantidad= 0; 
+let cantidad = 0; 
+let carritoProductos =
+JSON.parse(localStorage.getItem("carritoProductos")) || []; 
 let codigo = 0; 
-let codigoBorrar = 0; 
-let carritoProductos = JSON.parse(localStorage.getItem('carritoProductos')) || []; 
-let printCarritoHtml = document.getElementById('printHtml');
-let printCarritoVacioHtml = document.getElementById('carrito-vacio');
-let productos; 
+let confirmacion; 
 let itemBorrar;
-const btnDeletAll = document.querySelector('#btnDeletAll'); 
-const btnCarro1 = document.querySelector('#btnCarro1'); 
-const btnCarro2 = document.querySelector('#btnCarro2'); 
-const btnCarro3 = document.querySelector('#btnCarro3'); 
-const btnCarro4 = document.querySelector('#btnCarro4'); 
-const montoTotal = document.querySelector('#montoTotal'); 
+let productos;
+let total = 0; 
+const btnAceptar = document.querySelector('#btnAceptar'); 
+const btnCarro1 = document.querySelector("#btnCarro1"); 
+const btnCarro2 = document.querySelector("#btnCarro2");  
+const btnCarro3 = document.querySelector("#btnCarro3"); 
+const btnCarro4 = document.querySelector("#btnCarro4");
+const btnComprar = document.querySelector("#btnComprar"); 
+const btnDeletAll = document.querySelector("#btnDeletAll"); 
+const cantidadTotal = document.querySelector("#cantidad-total"); 
+const montoTotal = document.querySelector("#montoTotal"); 
+const printCarritoHtml = document.querySelector("#printHtml"); 
 
+    $("#pills-objetivos-tab").on("click", function (e) {
+    e.preventDefault();
+    $('#mensajes-alerta').empty();
+    $(this).tab("show");
+    });
 
-const imprimirCarritoEnHtml = (item) => {
-    printHtml.innerHTML = ""; 
-    for(item of item) {
-        productos = document.createElement('tr');
-        productos.innerHTML = `<th scope="row">${item.titulo}</th>
-                                <td>${item.codigo}</td>
-                                <td>$${item.precio}</td>
-                                <td><button id="${item.codigo}" type="button" class="borrar btn btn-danger">X</button></td>`;
-        
-        printHtml.appendChild(productos);
-        borrarItem();
+    $("#pills-productos-tab").on("click", function (e) {
+    e.preventDefault();
+    $('#mensajes-alerta').empty();
+    $(this).tab("show");
+    });
+
+    $("#pills-carrito-tab").on("click", function (e) {
+    e.preventDefault();
+    $('#mensajes-alerta').empty();
+    $(this).tab("show");
+    });
+
+const imprimirCarritoEnHtml = () => {
+    while (printCarritoHtml.firstChild) {
+    printCarritoHtml.removeChild(printCarritoHtml.firstChild);
     }
-}
+    carritoProductos.forEach((item) => {
+    const precioCantidad = item.precio * item.cantidad;
+    productos = document.createElement("tr");
+    productos.innerHTML = `<th scope="row"><img src=${item.portada} width="70rem"></th>
+                                <td>${item.titulo}</td>
+                                <td>${item.plataforma}</td>
+                                <td>${item.cantidad}</td>
+                                <td>$${precioCantidad}</td>
+                                <td><button id="${item.codigo}" type="button" class="borrar btn btn-danger">X</button></td>`;
+
+    printCarritoHtml.appendChild(productos);
+    });
+    montoTotal.innerHTML = ` $${montoTotalProductos()}`; 
+    borrarItem();
+    if (carritoProductos.length !== 0) {
+        cantidadTotal.innerHTML = `<span class="badge badge-pill bg-danger">${cantidadTotalProductos()}</span>`;
+    } else {
+    cantidadTotal.innerHTML = "";
+    }
+};
 
 const montoTotalProductos = () => {
     total = 0;
-    for(item of carritoProductos) {
-        total += item.precio; 
+    for (item of carritoProductos) {
+    total += item.precio * item.cantidad; 
     }
     return total;
-}
+};
+const cantidadTotalProductos = () => {
+    total = 0;
+    for (item of carritoProductos) {
+    total += item.cantidad; 
+    }
+    return total;
+};
 
-montoTotal.innerHTML = ` $${montoTotalProductos()}`;
 
-const borrarItem = ()=> {
-    const btnBorrarItem = document.querySelectorAll('tr button'); 
-    btnBorrarItem.forEach(btn => { 
-        btn.onclick = () => {  
-            itemBorrar = parseInt(btn.id)
-            const confirmacion = new bootstrap.Modal(document.getElementById('ventanaConfirmacion'));
-            confirmacion.show();
-            const btnAceptar = document.getElementById('btnAceptar');
-            btnAceptar.onclick = () => { 
-            carritoProductos = JSON.parse(localStorage.getItem('carritoProductos'));
-            const indexItemBorrar = carritoProductos.findIndex(item => item.codigo === itemBorrar)
-            carritoProductos.splice(indexItemBorrar, 1);
-            localStorage.setItem('carritoProductos', JSON.stringify(carritoProductos));
-            location.reload();
-            }    
-        }    
-    })
-}
+const borrarItem = () => {
+  const btnBorrarItem = document.querySelectorAll("tr button"); 
+    btnBorrarItem.forEach((btn) => { 
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        itemBorrar = parseInt(btn.id); 
+        carritoProductos = JSON.parse(localStorage.getItem("carritoProductos"));
+        const indexItemBorrar = carritoProductos.findIndex(
+        (item) => item.codigo === itemBorrar
+        );
+        carritoProductos.splice(indexItemBorrar, 1);
+        localStorage.setItem(
+        "carritoProductos",
+        JSON.stringify(carritoProductos)
+        );
+        imprimirCarritoEnHtml();
+      });
+    });
+};
 
-const filtroPorTitulo = (titulo )=> carritoProductos.filter(producto => producto.titulo === titulo);
+const contarRepeticion = (codigo) =>
+  carritoProductos.filter((producto) => producto.codigo === codigo); 
+  
+function vaciarCarrito () {
+    if (carritoProductos.length > 0) {
+    carritoProductos = [];
+    localStorage.clear();
+    imprimirCarritoEnHtml();
+    }
+  }
 
-imprimirCarritoEnHtml(carritoProductos);
 
-if(carritoProductos.length === 0) { 
-    productos = document.createElement('div');
-    productos.innerHTML = `<div class="alert alert-dark text-center" role="alert">Vaya, tu carrito está vacío. Comienza a agregar productos.</div>`;
-    printCarritoVacioHtml.appendChild(productos);
-}
+imprimirCarritoEnHtml(carritoProductos); 
 
-btnCarro1.addEventListener("click", () => {
-cantidad = ((filtroPorTitulo('Battlefield 2042')).length) + 1; 
-const item1 = new Carrito('Battlefield 2042', 1, 2800, cantidad); 
-ingresoCarrito(item1);            
+btnCarro1.addEventListener("click", (e) => { 
+  e.preventDefault();
+  cantidad = contarRepeticion(1).length + 1; 
+    const item1 = new Carrito("Battlefield 2042", 1, 2800, cantidad, 'PS4', "/assets/img/battlefield-2042.jpg"); 
+  ingresoCarrito(item1); 
+  
 }); 
-btnCarro2.addEventListener("click", () => { 
-cantidad = ((filtroPorTitulo('Blue Protocol')).length) + 1; 
-const item2 = new Carrito('Blue Protocol', 2, 2000, cantidad); 
-ingresoCarrito(item2);           
+btnCarro2.addEventListener("click", (e) => {
+  e.preventDefault();
+  cantidad = contarRepeticion(2).length + 1; 
+    const item2 = new Carrito("Blue Protocol", 2, 2000, cantidad, 'PC', "/assets/img/blue-protocol.jpg"); 
+  ingresoCarrito(item2); 
 }); 
-btnCarro3.addEventListener("click", () => { 
-cantidad = ((filtroPorTitulo('Halo Infinite')).length) + 1; 
-const item3 = new Carrito('Halo Infinite', 3, 2500, cantidad); 
-ingresoCarrito(item3);             
+btnCarro3.addEventListener("click", (e) => { 
+  e.preventDefault();
+  cantidad = contarRepeticion(3).length + 1; 
+    const item3 = new Carrito("Halo Infinite", 3, 2500, cantidad, 'XBOX', "/assets/img/halo-infinite.jpg"); 
+  ingresoCarrito(item3); 
 }); 
-btnCarro4.addEventListener("click", () => { 
-cantidad = ((filtroPorTitulo('Elden Ring')).length) + 1; 
-const item4 = new Carrito('Elden Ring', 4, 2800, cantidad); 
-ingresoCarrito(item4);          
+btnCarro4.addEventListener("click", (e) => { 
+  e.preventDefault();
+  cantidad = contarRepeticion(4).length + 1; 
+    const item4 = new Carrito("Elden Ring", 4, 2800, cantidad, 'PC', "/assets/img/elden-ring.jpg"); 
+  ingresoCarrito(item4); 
 }); 
 
-const ingresoCarrito = (item) => { 
-carritoProductos.push(item);
-localStorage.setItem('carritoProductos', JSON.stringify(carritoProductos)); 
-location.reload();
 
-}
+const ingresoCarrito = (item) => {
+    const existeItem = carritoProductos.some(
+    (producto) => producto.codigo === item.codigo
+  ); 
+    if (existeItem) {
+    const productos = carritoProductos.map((producto) => {
+        if (producto.codigo === item.codigo) {
+        producto.cantidad++;
+        return producto; 
+        } else {
+        return producto;
+        }
+    });
+    carritoProductos = [...productos]; 
+    } else {
+    carritoProductos = [...carritoProductos, item]; 
+    }
+  localStorage.setItem("carritoProductos", JSON.stringify(carritoProductos)); 
+  imprimirCarritoEnHtml();
+};
 
 class Carrito {
-    constructor(titulo, codigo, precio, cantidad) { 
-        this.titulo = titulo;
-        this.codigo = codigo;
-        this.precio = precio;
-        this.cantidad = cantidad;
-    }  
+    constructor(titulo, codigo, precio, cantidad, plataforma, portada) {
+    this.titulo = titulo;
+    this.codigo = codigo;
+    this.precio = precio;
+    this.cantidad = cantidad;
+    this.plataforma = plataforma;
+    this.portada = portada;
+    }
 }
 
-btnDeletAll.addEventListener("click", () => { 
-    if(carritoProductos.length >0) {
-            carritoProductos = [];
-            localStorage.clear();
-            location.reload();
-        }
-    
+btnDeletAll.addEventListener("click", vaciarCarrito);
+
+btnComprar.addEventListener("click", () => { 
+  if(carritoProductos.length !== 0) {
+    confirmacion = new bootstrap.Modal(document.querySelector('#ventanaConfirmacion')); 
+    confirmacion.show(); 
+    vaciarCarrito(); 
+    $('#mensajes-alerta').append('<div class="alert alert-success" role="alert">Compra realizada con exito.'); 
+    btnAceptar.addEventListener("click", () => {
+      confirmacion.hide();
+      
+  });
+}
 });
