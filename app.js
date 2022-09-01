@@ -92,6 +92,10 @@ const borrarItem = () => {
         JSON.stringify(carritoProductos)
         );
         imprimirCarritoEnHtml();
+        Swal.fire({
+          icon: 'error',
+          title: 'Has quitado el elemento del carrito',
+        })
       });
     });
 };
@@ -104,6 +108,10 @@ function vaciarCarrito () {
     carritoProductos = [];
     localStorage.clear();
     imprimirCarritoEnHtml();
+    Swal.fire({
+      icon: 'error',
+      title: 'Has vaciado el carrito',
+    })
     }
   }
 
@@ -115,25 +123,44 @@ btnCarro1.addEventListener("click", (e) => {
   cantidad = contarRepeticion(1).length + 1; 
     const item1 = new Carrito("Battlefield 2042", 1, 2800, cantidad, 'PS4', "/assets/img/battlefield-2042.jpg"); 
   ingresoCarrito(item1); 
-  
+  Swal.fire(
+    'Agregaste el juego al carrito',
+    '',
+    'success'
+  )
 }); 
 btnCarro2.addEventListener("click", (e) => {
   e.preventDefault();
   cantidad = contarRepeticion(2).length + 1; 
     const item2 = new Carrito("Blue Protocol", 2, 2000, cantidad, 'PC', "/assets/img/blue-protocol.jpg"); 
   ingresoCarrito(item2); 
+  Swal.fire(
+    'Agregaste el juego al carrito',
+    '',
+    'success'
+  )
 }); 
 btnCarro3.addEventListener("click", (e) => { 
   e.preventDefault();
   cantidad = contarRepeticion(3).length + 1; 
     const item3 = new Carrito("Halo Infinite", 3, 2500, cantidad, 'XBOX', "/assets/img/halo-infinite.jpg"); 
   ingresoCarrito(item3); 
+  Swal.fire(
+    'Agregaste el juego al carrito',
+    '',
+    'success'
+  )
 }); 
 btnCarro4.addEventListener("click", (e) => { 
   e.preventDefault();
   cantidad = contarRepeticion(4).length + 1; 
     const item4 = new Carrito("Elden Ring", 4, 2800, cantidad, 'PC', "/assets/img/elden-ring.jpg"); 
   ingresoCarrito(item4); 
+  Swal.fire(
+    'Agregaste el juego al carrito',
+    '',
+    'success'
+  )
 }); 
 
 
