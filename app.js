@@ -1,212 +1,50 @@
-let cantidad = 0; 
-let carritoProductos =
-JSON.parse(localStorage.getItem("carritoProductos")) || []; 
-let codigo = 0; 
-let confirmacion; 
-let itemBorrar;
-let productos;
-let total = 0; 
-const btnAceptar = document.querySelector('#btnAceptar'); 
-const btnCarro1 = document.querySelector("#btnCarro1"); 
-const btnCarro2 = document.querySelector("#btnCarro2");  
-const btnCarro3 = document.querySelector("#btnCarro3"); 
-const btnCarro4 = document.querySelector("#btnCarro4");
-const btnComprar = document.querySelector("#btnComprar"); 
-const btnDeletAll = document.querySelector("#btnDeletAll"); 
-const cantidadTotal = document.querySelector("#cantidad-total"); 
-const montoTotal = document.querySelector("#montoTotal"); 
-const printCarritoHtml = document.querySelector("#printHtml"); 
+let listadoComics = document.querySelector('#listado-comics');
 
-    $("#pills-objetivos-tab").on("click", function (e) {
-    e.preventDefault();
-    $('#mensajes-alerta').empty();
-    $(this).tab("show");
-    });
+const renderizarComics = (comics) => {  // Función que renderiza los comics en el DOM
+    const { title, thumbnail } = comics;
+    const { path, extension } = thumbnail;
+    const urlImagen = `${path}.${extension}`;
+    const tarjeta = document.createElement('div');
+    tarjeta.classList.add('col-md-3');
+    tarjeta.innerHTML = '';
+    tarjeta.innerHTML = `
+    <div class="card mb-3 mt-3 mr-3 ml-3"SS >
+        <img src="${urlImagen}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h4 class="card-title text-center">${title}</h4>
+        </div>
+    </div>`;
+    listadoComics.appendChild(tarjeta); // Agrega la tarjeta al DOM
+}
 
-    $("#pills-productos-tab").on("click", function (e) {
-    e.preventDefault();
-    $('#mensajes-alerta').empty();
-    $(this).tab("show");
-    });
+$('.btn-traer-comics').on('click', () => { // Espera a que se haga click en el botón.
 
-    $("#pills-carrito-tab").on("click", function (e) {
-    e.preventDefault();
-    $('#mensajes-alerta').empty();
-    $(this).tab("show");
-    });
+    $(document).ready(() => {
+        $('#listado-comics').css('background-color', 'white');
+        $('#listado-comics').empty(); // Limpia el contenido del DOM
+        $('#listado-comics').hide();
+        $.ajax({ // Hace una petición a la API
+            method: 'GET',
+            url: 'db.json',
+            success: (json) => { // Si la petición se hace correctamente, se ejecuta la función.
+                json.forEach((comics) => { // Recorre el array de comics.
+                    renderizarComics(comics); // Renderiza cada uno de los comics.
+                    $('.titulo').fadeIn(1000)
+                    $('#listado-comics').fadeIn(2000, () => {
 
-const imprimirCarritoEnHtml = () => {
-    while (printCarritoHtml.firstChild) {
-    printCarritoHtml.removeChild(printCarritoHtml.firstChild);
-    }
-    carritoProductos.forEach((item) => {
-    const precioCantidad = item.precio * item.cantidad;
-    productos = document.createElement("tr");
-    productos.innerHTML = `<th scope="row"><img src=${item.portada} width="70rem"></th>
-                                <td>${item.titulo}</td>
-                                <td>${item.plataforma}</td>
-                                <td>${item.cantidad}</td>
-                                <td>$${precioCantidad}</td>
-                                <td><button id="${item.codigo}" type="button" class="borrar btn btn-danger">X</button></td>`;
+                        $('#listado-comics').fadeOut(2000, () => {
+                            $('#listado-comics').fadeIn(2000, () => {
 
-    printCarritoHtml.appendChild(productos);
-    });
-    montoTotal.innerHTML = ` $${montoTotalProductos()}`; 
-    borrarItem();
-    if (carritoProductos.length !== 0) {
-        cantidadTotal.innerHTML = `<span class="badge badge-pill bg-danger">${cantidadTotalProductos()}</span>`;
-    } else {
-    cantidadTotal.innerHTML = "";
-    }
-};
+                                $('#listado-comics').css('background-color', 'black');
 
-const montoTotalProductos = () => {
-    total = 0;
-    for (item of carritoProductos) {
-    total += item.precio * item.cantidad; 
-    }
-    return total;
-};
-const cantidadTotalProductos = () => {
-    total = 0;
-    for (item of carritoProductos) {
-    total += item.cantidad; 
-    }
-    return total;
-};
+                            });
+                        });;
 
 
-const borrarItem = () => {
-  const btnBorrarItem = document.querySelectorAll("tr button"); 
-    btnBorrarItem.forEach((btn) => { 
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        itemBorrar = parseInt(btn.id); 
-        carritoProductos = JSON.parse(localStorage.getItem("carritoProductos"));
-        const indexItemBorrar = carritoProductos.findIndex(
-        (item) => item.codigo === itemBorrar
-        );
-        carritoProductos.splice(indexItemBorrar, 1);
-        localStorage.setItem(
-        "carritoProductos",
-        JSON.stringify(carritoProductos)
-        );
-        imprimirCarritoEnHtml();
-        Swal.fire({
-          icon: 'error',
-          title: 'Has quitado el elemento del carrito',
+                    });
+                })
+            }
         })
-      });
-    });
-};
-
-const contarRepeticion = (codigo) =>
-  carritoProductos.filter((producto) => producto.codigo === codigo); 
-  
-function vaciarCarrito () {
-    if (carritoProductos.length > 0) {
-    carritoProductos = [];
-    localStorage.clear();
-    imprimirCarritoEnHtml();
-    Swal.fire({
-      icon: 'error',
-      title: 'Has vaciado el carrito',
     })
-    }
-  }
 
-
-imprimirCarritoEnHtml(carritoProductos); 
-
-btnCarro1.addEventListener("click", (e) => { 
-  e.preventDefault();
-  cantidad = contarRepeticion(1).length + 1; 
-    const item1 = new Carrito("Battlefield 2042", 1, 2800, cantidad, 'PS4', "/assets/img/battlefield-2042.jpg"); 
-  ingresoCarrito(item1); 
-  Swal.fire(
-    'Agregaste el juego al carrito',
-    '',
-    'success'
-  )
-}); 
-btnCarro2.addEventListener("click", (e) => {
-  e.preventDefault();
-  cantidad = contarRepeticion(2).length + 1; 
-    const item2 = new Carrito("Blue Protocol", 2, 2000, cantidad, 'PC', "/assets/img/blue-protocol.jpg"); 
-  ingresoCarrito(item2); 
-  Swal.fire(
-    'Agregaste el juego al carrito',
-    '',
-    'success'
-  )
-}); 
-btnCarro3.addEventListener("click", (e) => { 
-  e.preventDefault();
-  cantidad = contarRepeticion(3).length + 1; 
-    const item3 = new Carrito("Halo Infinite", 3, 2500, cantidad, 'XBOX', "/assets/img/halo-infinite.jpg"); 
-  ingresoCarrito(item3); 
-  Swal.fire(
-    'Agregaste el juego al carrito',
-    '',
-    'success'
-  )
-}); 
-btnCarro4.addEventListener("click", (e) => { 
-  e.preventDefault();
-  cantidad = contarRepeticion(4).length + 1; 
-    const item4 = new Carrito("Elden Ring", 4, 2800, cantidad, 'PC', "/assets/img/elden-ring.jpg"); 
-  ingresoCarrito(item4); 
-  Swal.fire(
-    'Agregaste el juego al carrito',
-    '',
-    'success'
-  )
-}); 
-
-
-const ingresoCarrito = (item) => {
-    const existeItem = carritoProductos.some(
-    (producto) => producto.codigo === item.codigo
-  ); 
-    if (existeItem) {
-    const productos = carritoProductos.map((producto) => {
-        if (producto.codigo === item.codigo) {
-        producto.cantidad++;
-        return producto; 
-        } else {
-        return producto;
-        }
-    });
-    carritoProductos = [...productos]; 
-    } else {
-    carritoProductos = [...carritoProductos, item]; 
-    }
-  localStorage.setItem("carritoProductos", JSON.stringify(carritoProductos)); 
-  imprimirCarritoEnHtml();
-};
-
-class Carrito {
-    constructor(titulo, codigo, precio, cantidad, plataforma, portada) {
-    this.titulo = titulo;
-    this.codigo = codigo;
-    this.precio = precio;
-    this.cantidad = cantidad;
-    this.plataforma = plataforma;
-    this.portada = portada;
-    }
-}
-
-btnDeletAll.addEventListener("click", vaciarCarrito);
-
-btnComprar.addEventListener("click", () => { 
-  if(carritoProductos.length !== 0) {
-    confirmacion = new bootstrap.Modal(document.querySelector('#ventanaConfirmacion')); 
-    confirmacion.show(); 
-    vaciarCarrito(); 
-    $('#mensajes-alerta').append('<div class="alert alert-success" role="alert">Compra realizada con exito.'); 
-    btnAceptar.addEventListener("click", () => {
-      confirmacion.hide();
-      
-  });
-}
 });
