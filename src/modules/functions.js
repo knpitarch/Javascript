@@ -140,7 +140,7 @@ export const cambiarCantidad = () => {
             } else if (e.target.classList.contains('btn-restar')) {
                 const producto = carritoProductos.find(item => item.id === itemCambiar);
                 if (producto.cantidad > 1) {
-                    producto.cantidad--; /
+                    producto.cantidad--; 
                     localStorage.setItem('carritoProductos', JSON.stringify(carritoProductos)); 
                     renderizarCarrito();
                 } else { btn.disabled = true }
